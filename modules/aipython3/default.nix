@@ -1,7 +1,11 @@
-{ lib, ... }:
+{ lib, self, ... }:
 
 {
   perSystem = { pkgs, ... }: {
+    _module.args.pkgs = import self.inputs.nixpkgs {
+      overlays = [(import ../../overlays/python.nix)];
+    };
+
     dependencySets = let
       overlays = import ./overlays.nix pkgs;
 

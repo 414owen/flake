@@ -5,6 +5,11 @@ pkgs: {
       pythonRelaxDeps = [ "protobuf" ];
     });
   in {
+    omegaconf = prev.omegaconf.overridePythonAttrs (old: {
+      # DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydevd_plugins')`
+      doCheck = false;
+    });
+
     pytorch-lightning = relaxProtobuf prev.pytorch-lightning;
     wandb = relaxProtobuf prev.wandb;
     markdown-it-py = prev.markdown-it-py.overrideAttrs (old: {
@@ -47,11 +52,6 @@ pkgs: {
     scikit-image = final.scikitimage;
     opencv-python-headless = final.opencv-python;
     opencv-python = final.opencv4;
-    omegaconf = prev.omegaconf.overridePythonAttrs (old: {
-      # DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('pydevd_plugins')`
-      doCheck = false;
-    });
-
     safetensors = callPackage ../../packages/safetensors { };
     compel = callPackage ../../packages/compel { };
     apispec-webframeworks = callPackage ../../packages/apispec-webframeworks { };
