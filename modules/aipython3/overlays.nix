@@ -108,7 +108,5 @@ pkgs: {
   };
 
   torchCuda = final: prev: {
-    torch = final.torch-bin;
-    torchvision = final.torchvision-bin;
   };
 }
