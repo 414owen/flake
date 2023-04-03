@@ -107,9 +107,11 @@ pkgs: {
     #     hash = "sha256-8CM1QZ9cZfexa+HWhG4SfA/PTGB2475dxoOtGZ3Wa2E=";
     #   };
     # });
-    torch = pkgs.python3Packages.torch;
+    
+    
+    # torch = prev.torch;
     # torch = pkgs.python3Packages.torch.override { rocmSupport = true; };
-    torchvision = pkgs.python3Packages.torchvision;
+    # torchvision = prev.torchvision-bin;
   };
 
   torchCuda = final: prev: {
