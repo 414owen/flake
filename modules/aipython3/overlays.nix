@@ -59,6 +59,7 @@ pkgs: {
     gfpgan = rmCallPackage ../../packages/gfpgan { };
     basicsr = rmCallPackage ../../packages/basicsr { };
     facexlib = rmCallPackage ../../packages/facexlib { };
+    fastapi-events = rmCallPackage ../../packages/fastapi-events { };
     fastapi-socketio = rmCallPackage ../../packages/fastapi-socketio { };
     flaskwebgui = rmCallPackage ../../packages/flaskwebgui { };
     realesrgan = rmCallPackage ../../packages/realesrgan { };

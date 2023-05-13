@@ -2,11 +2,11 @@
 
 buildPythonPackage rec {
   pname = "fastapi-socketio";
-  version = "0.0.9";
+  version = "0.0.10";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-jHOqlP4b8cmWT/iSM6a6Uu7uw6yLneACTZ2CsR5GveU=";
+    sha256 = "sha256-IC+bMZ8BAAHL0RFOySoNnrX1ypMW6uX9QaYIjaCBJyc=";
   };
 
   propagatedBuildInputs = [

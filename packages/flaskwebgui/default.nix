@@ -1,15 +1,16 @@
-{ buildPythonPackage, fetchPypi, lib, fastapi, python-socketio }:
+{ buildPythonPackage, fetchPypi, lib, fastapi, python-socketio, psutil }:
 
 buildPythonPackage rec {
-  pname = "flask-webgui";
+  pname = "flaskwebgui";
   version = "1.0.3";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-jH3qlP4b8cmWT/iSM6a6Uu7uw6yLneACTZ2CsR5GveU=";
+    sha256 = "sha256-eG1G3BvmXmu0a1qkoOs699Uxdpy3Vvt6RCpk01le5yo=";
   };
 
   propagatedBuildInputs = [
+    psutil
     fastapi
     python-socketio
   ];

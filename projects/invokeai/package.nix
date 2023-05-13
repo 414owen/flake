@@ -15,9 +15,10 @@ let
     (builtins.match ".*__version__ ?= ?('[^']+'|\"[^\"]+\").*")
     builtins.head
   ];
+  unwords = strs: lib.concatStringsSep " " (map (s: "\"" + s + "\"") strs);
 in
 
-aipython3.buildPythonPackage {
+aipython3.buildPythonPackage rec {
   pname = "InvokeAI";
   format = "pyproject";
   version = getVersion src;
@@ -26,6 +27,8 @@ aipython3.buildPythonPackage {
     numpy
     dnspython
     albumentations
+    fastapi
+    fastapi-events
     fastapi-socketio
     opencv4
     pudb
@@ -48,6 +51,7 @@ aipython3.buildPythonPackage {
     picklescan
     diffusers
     pypatchmatch
+    python-dotenv
     realesrgan
     pillow
     send2trash
@@ -61,10 +65,18 @@ aipython3.buildPythonPackage {
     getpass-asterisk
     safetensors
     datasets
+    uvicorn
+    uvloop
+    httptools
+    watchfiles
+    websockets
   ];
   nativeBuildInputs = [ aipython3.pythonRelaxDepsHook ];
   pythonRemoveDeps = [ "clip" "pyreadline3" "flaskwebgui" "opencv-python" ];
-  pythonRelaxDeps = [ "dnspython" "protobuf" "flask" "flask-socketio" "pytorch-lightning" ];
+
+  # downgraded: numpy, uvicorn
+  pythonRelaxDeps = [ "dnspython" "fastapi" "protobuf" "numpy" "uvicorn[standard]" "flask" "flask_socketio" "pytorch-lightning" ];
+
   makeWrapperArgs = [
     '' --run '
       if [ -d "/usr/lib/wsl/lib" ]
@@ -105,6 +117,25 @@ import subprocess
     substituteInPlace ./invokeai/backend/config/invokeai_configure.py --replace \
       "shutil.copytree(configs_src, configs_dest, dirs_exist_ok=True)" \
       "subprocess.call('cp -r --no-preserve=mode {configs_src} {configs_dest}'.format(configs_src=configs_src, configs_dest=configs_dest), shell=True)"
+
+    for package in ${unwords pythonRemoveDeps}; do
+      sed -i "/$package/d" pyproject.toml
+    done
+
+    escapeRegChars() {
+      sed 's/\[/\\[/g; s/\]/\\]/g; s/[-]/[-]/g' <<< "$1"
+    }
+
+    for package in ${unwords pythonRelaxDeps}; do
+      echo "Relaxing $package"
+      escapedPackage="$(escapeRegChars "$package")"
+      script='s/\([[:space:]]*"'"$escapedPackage"'\)\(>\|<\|==\|<=\|>=\)[^"]*\(.*\)$/\1\3/g'
+      echo "$script"
+      sed -i "$script" pyproject.toml
+    done
+
+    cat pyproject.toml
+
     runHook postPatch
   '';
   postFixup = ''
