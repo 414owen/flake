@@ -8,7 +8,8 @@
 
   inputs = {
     nixpkgs = {
-      url = "git+file:../nixpkgs?shallow=1";
+      url = "github:NixOS/nixpkgs/nixos-unstable";
+      # url = "git+file:../nixpkgs?shallow=1";
     };
     invokeai-src = {
       url = "github:invoke-ai/InvokeAI/dev/pytorch2";
