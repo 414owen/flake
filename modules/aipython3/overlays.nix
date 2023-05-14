@@ -6,7 +6,7 @@ pkgs: {
     });
   in {
     pytorch-lightning = relaxProtobuf prev.pytorch-lightning;
-    wandb = relaxProtobuf prev.wandb;
+    # wandb = relaxProtobuf prev.wandb;
     markdown-it-py = prev.markdown-it-py.overrideAttrs (old: {
       nativeBuildInputs = old.nativeBuildInputs ++ [ final.pythonRelaxDepsHook ];
       pythonRelaxDeps = [ "linkify-it-py" ];
@@ -111,7 +111,8 @@ pkgs: {
     #   };
     # });
     # torch = torch-bin;
-    # torchvision = torchvision-bin;
+    torch = prev.pkgs.python3Packages.torchWithRocm;
+    torchvision = prev.pkgs.python3Packages.torchvision-bin;
   };
 
   torchCuda = final: prev: {

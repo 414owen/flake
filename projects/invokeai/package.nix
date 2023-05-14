@@ -43,11 +43,10 @@ aipython3.buildPythonPackage rec {
     streamlit
     einops
     taming-transformers-rom1504
-    torch-fidelity
+    # torch-fidelity
     torchmetrics
     transformers
     kornia
-    k-diffusion
     picklescan
     diffusers
     pypatchmatch
@@ -61,7 +60,6 @@ aipython3.buildPythonPackage rec {
     dependency-injector
     gfpgan
     eventlet
-    clipseg
     getpass-asterisk
     safetensors
     datasets

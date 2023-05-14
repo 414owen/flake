@@ -20,7 +20,6 @@ buildPythonPackage rec {
     filterpy
     numba
     numpy
-    numpy
     opencv-python
     pillow
     scipy

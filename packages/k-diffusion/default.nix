@@ -29,9 +29,11 @@ buildPythonPackage rec {
     torchdiffeq
     torchvision
     tqdm
-    wandb
+    # wandb
     clean-fid
   ];
+
+  # pythonRemoveDeps = [ "wandb" ];
 
   # TODO FIXME
   doCheck = false;
