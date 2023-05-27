@@ -280,18 +280,18 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1683983358,
-        "narHash": "sha256-dzwUxssgPqlE0ZrUDiGG780g0YuF1hGXmelXoWlWkrA=",
-        "ref": "refs/heads/os/invokeai-fixes",
-        "rev": "593b3f277c1cc514a4107845e7c31a2884f8c0c4",
-        "shallow": true,
-        "type": "git",
-        "url": "file:../nixpkgs"
+        "lastModified": 1684935479,
+        "narHash": "sha256-6QMMsXMr2nhmOPHdti2j3KRHt+bai2zw+LJfdCl97Mk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f91ee3065de91a3531329a674a45ddcb3467a650",
+        "type": "github"
       },
       "original": {
-        "shallow": true,
-        "type": "git",
-        "url": "file:../nixpkgs"
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "pre-commit-hooks-nix": {

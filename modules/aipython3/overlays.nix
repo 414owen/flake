@@ -44,7 +44,7 @@ pkgs: {
     callPackage = final.callPackage;
     rmCallPackage = path: args: rm (callPackage path args);
   in {
-    scikit-image = final.scikitimage;
+    # scikit-image = final.scikitimage;
     opencv-python-headless = final.opencv-python;
     opencv-python = final.opencv4;
 
@@ -111,8 +111,27 @@ pkgs: {
     #   };
     # });
     # torch = torch-bin;
-    torch = prev.pkgs.python3Packages.torchWithRocm;
-    torchvision = prev.pkgs.python3Packages.torchvision-bin;
+
+    torch = prev.torch.override {
+      magma = final.pkgs.magma-hip;
+      rocmSupport = true;
+      cudaSupport = false;
+    };
+
+    torchVision = prev.torch.override {
+      doInstallCheck = false;
+      pythonImportChecks = [];
+      nativeBuildInputs = [ pkgs.breakpointHook ];
+      checkPhase = false;
+    }.overrideAttrs(prev: {
+      
+      nativeBuildInputs = [ pkgs.breakpointHook ];
+    });
+
+    # wants cuda...
+    # torchvision = prev.torchvision-bin.override {
+    #   torch-bin = torch;
+    # };
   };
 
   torchCuda = final: prev: {

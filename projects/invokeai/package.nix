@@ -24,6 +24,7 @@ aipython3.buildPythonPackage rec {
   version = getVersion src;
   inherit src;
   propagatedBuildInputs = with aipython3; [
+    accelerate
     numpy
     dnspython
     albumentations
@@ -36,13 +37,13 @@ aipython3.buildPythonPackage rec {
     imageio-ffmpeg
     compel
     npyscreen
-    pytorch-lightning
+    # pytorch-lightning
     protobuf
     omegaconf
     test-tube
     streamlit
     einops
-    taming-transformers-rom1504
+    # taming-transformers-rom1504
     # torch-fidelity
     torchmetrics
     transformers
@@ -51,18 +52,19 @@ aipython3.buildPythonPackage rec {
     diffusers
     pypatchmatch
     python-dotenv
-    realesrgan
+    # realesrgan
     pillow
     send2trash
     flask
     flask-socketio
     flask-cors
     dependency-injector
-    gfpgan
+    # gfpgan
     eventlet
     getpass-asterisk
     safetensors
     datasets
+    torchvision
     uvicorn
     uvloop
     httptools
@@ -70,7 +72,7 @@ aipython3.buildPythonPackage rec {
     websockets
   ];
   nativeBuildInputs = [ aipython3.pythonRelaxDepsHook ];
-  pythonRemoveDeps = [ "clip" "pyreadline3" "flaskwebgui" "opencv-python" ];
+  pythonRemoveDeps = [ "clip" "pytorch-lightning" "facexlib" "gfpgan" "realesrgan" "pyreadline3" "flaskwebgui" "opencv-python" ];
 
   # downgraded: numpy, uvicorn
   pythonRelaxDeps = [ "dnspython" "fastapi" "protobuf" "numpy" "uvicorn[standard]" "flask" "flask_socketio" "pytorch-lightning" ];
